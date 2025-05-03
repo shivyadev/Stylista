@@ -1,0 +1,632 @@
+[
+  {
+    "id": 15970,
+    "gender": "Men",
+    "articleType": "Shirts",
+    "baseColour": "Navy Blue",
+    "season": "Winter",
+    "usage": "Casual",
+    "productDisplayName": "Turtle Check Men Navy Blue Shirt",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/7a5b82d1372a7a5c6de67ae7a314fd91_images.jpg"
+  },
+  {
+    "id": 39386,
+    "gender": "Men",
+    "articleType": "Jeans",
+    "baseColour": "Blue",
+    "season": "Summer",
+    "usage": "Casual",
+    "productDisplayName": "Peter England Men Party Blue Jeans",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/4850873d0c417e6480a26059f83aac29_images.jpg"
+  },
+  {
+    "id": 59263,
+    "gender": "Women",
+    "articleType": "Watches",
+    "baseColour": "Silver",
+    "season": "Winter",
+    "usage": "Casual",
+    "productDisplayName": "Titan Women Silver Watch",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/Titan-Women-Silver-Watch_b4ef04538840c0020e4829ecc042ead1_images.jpg"
+  },
+  {
+    "id": 21379,
+    "gender": "Men",
+    "articleType": "Track Pants",
+    "baseColour": "Black",
+    "season": "Winter",
+    "usage": "Casual",
+    "productDisplayName": "Manchester United Men Solid Black Track Pants",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/8153dc35d9a5420eeb93922067137db6_images.jpg"
+  },
+  {
+    "id": 53759,
+    "gender": "Men",
+    "articleType": "Tshirts",
+    "baseColour": "Grey",
+    "season": "Summer",
+    "usage": "Casual",
+    "productDisplayName": "Puma Men Grey T-shirt",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/Puma-Men-Grey-T-shirt_32668f8a61454d0cc028a808cf21b383_images.jpg"
+  },
+  {
+    "id": 1855,
+    "gender": "Men",
+    "articleType": "Tshirts",
+    "baseColour": "Grey",
+    "season": "Summer",
+    "usage": "Casual",
+    "productDisplayName": "Inkfruit Mens Chain Reaction T-shirt",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/9c1b19682ecf926c296f520d5d6e0972_images.jpg"
+  },
+  {
+    "id": 26960,
+    "gender": "Women",
+    "articleType": "Shirts",
+    "baseColour": "Purple",
+    "season": "Summer",
+    "usage": "Casual",
+    "productDisplayName": "Jealous 21 Women Purple Shirt",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/45ddbc6a15140556214e15923244755b_images.jpg"
+  },
+  {
+    "id": 29114,
+    "gender": "Men",
+    "articleType": "Socks",
+    "baseColour": "Navy Blue",
+    "season": "Summer",
+    "usage": "Casual",
+    "productDisplayName": "Puma Men Pack of 3 Socks",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/4ca8848ab441378a392d9d5bf0b0f3c7_images.jpg"
+  },
+  {
+    "id": 30039,
+    "gender": "Men",
+    "articleType": "Watches",
+    "baseColour": "Black",
+    "season": "Winter",
+    "usage": "Casual",
+    "productDisplayName": "Skagen Men Black Watch",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/Skagen-Men-Black-Watch_4982b2b1a76a85a85c9adc8b4b2d523a_images.jpg"
+  },
+  {
+    "id": 9204,
+    "gender": "Men",
+    "articleType": "Casual Shoes",
+    "baseColour": "Black",
+    "season": "Summer",
+    "usage": "Casual",
+    "productDisplayName": "Puma Men Future Cat Remix SF Black Casual Shoes",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/051d64772f1b38ff476fbf0a807f365a_images.jpg"
+  },
+  {
+    "id": 48123,
+    "gender": "Women",
+    "articleType": "Belts",
+    "baseColour": "Black",
+    "season": "Summer",
+    "usage": "Casual",
+    "productDisplayName": "Fossil Women Black Huarache Weave Belt",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/8eee4563e14cf451b07f27761fd6535f_images.jpg"
+  },
+  {
+    "id": 18653,
+    "gender": "Men",
+    "articleType": "Flip Flops",
+    "baseColour": "Black",
+    "season": "Winter",
+    "usage": "Casual",
+    "productDisplayName": "Fila Men Cush Flex Black Slippers",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/53690e3f396f411e184b249672d6ebae_images.jpg"
+  },
+  {
+    "id": 47957,
+    "gender": "Women",
+    "articleType": "Handbags",
+    "baseColour": "Blue",
+    "season": "Summer",
+    "usage": "Casual",
+    "productDisplayName": "Murcia Women Blue Handbag",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/Murcia-Women-Blue-Handbag_13cfaff26872c298112a8e7da15c1e1d_images.jpg"
+  },
+  {
+    "id": 12369,
+    "gender": "Men",
+    "articleType": "Shirts",
+    "baseColour": "Purple",
+    "season": "Winter",
+    "usage": "Formal",
+    "productDisplayName": "Reid & Taylor Men Check Purple Shirts",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/8bc9be576081baae77e8561b1132288f_images.jpg"
+  },
+  {
+    "id": 29928,
+    "gender": "Men",
+    "articleType": "Watches",
+    "baseColour": "Black",
+    "season": "Winter",
+    "usage": "Casual",
+    "productDisplayName": "Police Men Black Dial Watch PL12889JVSB",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/Police-Men-Black-Dial-Watch_5bd8cae4fc61052a6f00cfcd69c4a936_images.jpg"
+  },
+  {
+    "id": 47359,
+    "gender": "Women",
+    "articleType": "Handbags",
+    "baseColour": "Brown",
+    "season": "Summer",
+    "usage": "Casual",
+    "productDisplayName": "Baggit Women Brown Handbag",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/b14c7bf275c6edca3e849200fb7cbf6c_images.jpg"
+  },
+  {
+    "id": 17429,
+    "gender": "Men",
+    "articleType": "Watches",
+    "baseColour": "Black",
+    "season": "Winter",
+    "usage": "Casual",
+    "productDisplayName": "CASIO G-Shock Men Black Digital Watch G-7710-1DR G223",
+    "link": "http://assets.myntassets.com/assets/images/17429/2018/3/5/11520250143953-CASIO-G-Shock-Men-Black-Digital-Watch-G223-8211520250143786-1.jpg"
+  },
+  {
+    "id": 12967,
+    "gender": "Men",
+    "articleType": "Sandals",
+    "baseColour": "Black",
+    "season": "Winter",
+    "usage": "Casual",
+    "productDisplayName": "ADIDAS Men Spry M Black Sandals",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/c5a22e9ccf9b10e0a89ffbbf3e386584_images.jpg"
+  },
+  {
+    "id": 13089,
+    "gender": "Men",
+    "articleType": "Sweatshirts",
+    "baseColour": "Grey",
+    "season": "Winter",
+    "usage": "Sports",
+    "productDisplayName": "ADIDAS Men Lfc Auth Hood Grey Sweatshirts",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/59912a0287751ff0475c8748dbcf4ea0_images.jpg"
+  },
+  {
+    "id": 9036,
+    "gender": "Men",
+    "articleType": "Formal Shoes",
+    "baseColour": "Black",
+    "season": "Winter",
+    "usage": "Formal",
+    "productDisplayName": "Buckaroo Men Flores Black Formal Shoes",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/06edc2da9c6d103d299e5e8dafc5b6b9_images.jpg"
+  },
+  {
+    "id": 7990,
+    "gender": "Men",
+    "articleType": "Tshirts",
+    "baseColour": "Navy Blue",
+    "season": "Winter",
+    "usage": "Sports",
+    "productDisplayName": "Fila Men's Round Neck Navy Blue T-shirt",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/296a8c388d05d67346db88af27d3b763_images.jpg"
+  },
+  {
+    "id": 21977,
+    "gender": "Women",
+    "articleType": "Handbags",
+    "baseColour": "Brown",
+    "season": "Winter",
+    "usage": "Casual",
+    "productDisplayName": "Murcia Women Casual Brown Handbag",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/88d0bc675d72477729f38c30332e749a_images.jpg"
+  },
+  {
+    "id": 37812,
+    "gender": "Men",
+    "articleType": "Shirts",
+    "baseColour": "Navy Blue",
+    "season": "Summer",
+    "usage": "Formal",
+    "productDisplayName": "John Players Men Navy Blue Shirt",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/3af9f145845d8453a066322de35980af_images.jpg"
+  },
+  {
+    "id": 56825,
+    "gender": "Men",
+    "articleType": "Shirts",
+    "baseColour": "Brown",
+    "season": "Summer",
+    "usage": "Casual",
+    "productDisplayName": "John Players Men Brown Shirt",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/John-Players-Men-Brown-Shirt_7eec3b0568f65dc8f39a534376538551_images.jpg"
+  },
+  {
+    "id": 39988,
+    "gender": "Men",
+    "articleType": "Casual Shoes",
+    "baseColour": "White",
+    "season": "Winter",
+    "usage": "Casual",
+    "productDisplayName": "Gas Men Europa White Shoes",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/9c3d77147758ab10f12caf6184fe13ef_images.jpg"
+  },
+  {
+    "id": 59051,
+    "gender": "Women",
+    "articleType": "Flats",
+    "baseColour": "Black",
+    "season": "Winter",
+    "usage": "Casual",
+    "productDisplayName": "Carlton London Women Black & Gold Toned Flats",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/Carlton-London-Women-Black-Gladiator-Sandals_b8f695202ccc1889f65d57b4000a888f_images.jpg"
+  },
+  {
+    "id": 58183,
+    "gender": "Women",
+    "articleType": "Handbags",
+    "baseColour": "White",
+    "season": "Summer",
+    "usage": "Casual",
+    "productDisplayName": "Rocky S Women White Handbag",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/Rocky-S-Women-White-Handbag_1440a0abd2ddaf3199965e604831b164_images.jpg"
+  },
+  {
+    "id": 29742,
+    "gender": "Women",
+    "articleType": "Handbags",
+    "baseColour": "Teal",
+    "season": "Summer",
+    "usage": "Casual",
+    "productDisplayName": "Kiara Women Teal Handbag",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/8b58c65e5634233b165c40cdbbcf58b8_images.jpg"
+  },
+  {
+    "id": 51658,
+    "gender": "Women",
+    "articleType": "Watches",
+    "baseColour": "Copper",
+    "season": "Winter",
+    "usage": "Casual",
+    "productDisplayName": "Fossil Women Copper Chronograph Watch CH2589",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/072af0cd079f20296c72f3594a21f141_images.jpg"
+  },
+  {
+    "id": 3954,
+    "gender": "Women",
+    "articleType": "Tshirts",
+    "baseColour": "Pink",
+    "season": "Summer",
+    "usage": "Casual",
+    "productDisplayName": "Jealous 21 Women's Pink T-shirt",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/b56e261f9206aa95e42c43f4e62d0e5a_images.jpg"
+  },
+  {
+    "id": 18839,
+    "gender": "Men",
+    "articleType": "Belts",
+    "baseColour": "Black",
+    "season": "Winter",
+    "usage": "Formal",
+    "productDisplayName": "Peter England Men Formal Black Belt",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/Peter-England-Men-Formal-Black-Beltbc472bd919c505690ecbc1eed8af7fbf_images.jpg"
+  },
+  {
+    "id": 2886,
+    "gender": "Women",
+    "articleType": "Flats",
+    "baseColour": "Brown",
+    "season": "Winter",
+    "usage": "Casual",
+    "productDisplayName": "Catwalk Women Leather Brown Flats",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/94a9deea53125663d9bbe61cb38b84b4_images.jpg"
+  },
+  {
+    "id": 23278,
+    "gender": "Men",
+    "articleType": "Watches",
+    "baseColour": "Off White",
+    "season": "Winter",
+    "usage": "Casual",
+    "productDisplayName": "Maxima Ssteele Men Off White Watch",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/93aa34922c6446706c003ba2255747f5_images.jpg"
+  },
+  {
+    "id": 8580,
+    "gender": "Men",
+    "articleType": "Waistcoat",
+    "baseColour": "Grey",
+    "season": "Winter",
+    "usage": "Casual",
+    "productDisplayName": "Scullers Men  Grey Waistcoat",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/0d2e2ceaaf6d09d447caad678b2edbe6_images.jpg"
+  },
+  {
+    "id": 3168,
+    "gender": "Men",
+    "articleType": "Sports Shoes",
+    "baseColour": "White",
+    "season": "Winter",
+    "usage": "Sports",
+    "productDisplayName": "Nike Men's Incinerate MSL White Blue Shoe",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/4eff2353c62ec8b7bca9fbbaf5996bd2_images.jpg"
+  },
+  {
+    "id": 18005,
+    "gender": "Men",
+    "articleType": "Shorts",
+    "baseColour": "Black",
+    "season": "Summer",
+    "usage": "Sports",
+    "productDisplayName": "Puma Men Long Logo Black Bermuda",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/91ca48e3204f23cd376fad7f186875bf_images.jpg"
+  },
+  {
+    "id": 9452,
+    "gender": "Men",
+    "articleType": "Shirts",
+    "baseColour": "Red",
+    "season": "Winter",
+    "usage": "Formal",
+    "productDisplayName": "John Miller Men Stripes White Red Shirts",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/5e557eb0be7c6420f7c7a6bbaa432993_images.jpg"
+  },
+  {
+    "id": 38402,
+    "gender": "Women",
+    "articleType": "Belts",
+    "baseColour": "Black",
+    "season": "Summer",
+    "usage": "Casual",
+    "productDisplayName": "Baggit Women Hood Dabang Black Belt",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/2eb3aa5eefb3319f10f7815100a18e3c_images.jpg"
+  },
+  {
+    "id": 44984,
+    "gender": "Women",
+    "articleType": "Watches",
+    "baseColour": "White",
+    "season": "Winter",
+    "usage": "Casual",
+    "productDisplayName": "Maxima Women White Dial Watch",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/676dd802241d46a5ce28c78d1dabbc5a_images.jpg"
+  },
+  {
+    "id": 10268,
+    "gender": "Men",
+    "articleType": "Formal Shoes",
+    "baseColour": "Black",
+    "season": "Winter",
+    "usage": "Formal",
+    "productDisplayName": "Clarks Men Hang Work Leather Black Formal Shoes",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/2976e4095e7b3ae2de99df54d2adeaaa_images.jpg"
+  },
+  {
+    "id": 59435,
+    "gender": "Men",
+    "articleType": "Formal Shoes",
+    "baseColour": "Black",
+    "season": "Summer",
+    "usage": "Formal",
+    "productDisplayName": "Arrow Men Black Formal Shoes",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/Arrow-Men-Black-Formal-Shoes_70a3c7c185338a5636c8c0e668829bb6_images.jpg"
+  },
+  {
+    "id": 5891,
+    "gender": "Men",
+    "articleType": "Tshirts",
+    "baseColour": "Black",
+    "season": "Summer",
+    "usage": "Casual",
+    "productDisplayName": "Puma Men's Stripe Polo Black T-shirt",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/02e4e32cd9d09052f0ec3d46fa747d39_images.jpg"
+  },
+  {
+    "id": 38630,
+    "gender": "Women",
+    "articleType": "Tshirts",
+    "baseColour": "Purple",
+    "season": "Summer",
+    "usage": "Casual",
+    "productDisplayName": "Nike Women Purple Polo T-shirt",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/206a0614c4644cd8816576efd47d60d8_images.jpg"
+  },
+  {
+    "id": 4943,
+    "gender": "Men",
+    "articleType": "Shirts",
+    "baseColour": "White",
+    "season": "Summer",
+    "usage": "Casual",
+    "productDisplayName": "Gini and Jony Boy's Kaleb White Brown Kidswear",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/1aae016d0abb224cfc18e6bd9bb01ad1_images.jpg"
+  },
+  {
+    "id": 11188,
+    "gender": "Men",
+    "articleType": "Watches",
+    "baseColour": "Silver",
+    "season": "Winter",
+    "usage": "Casual",
+    "productDisplayName": "Carrera Men Dial steel finish strap Silver Watches",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/b2959d44db543af13d78492225a830de_images.jpg"
+  },
+  {
+    "id": 10866,
+    "gender": "Men",
+    "articleType": "Tshirts",
+    "baseColour": "Red",
+    "season": "Winter",
+    "usage": "Casual",
+    "productDisplayName": "Wrangler Men Motor Rider Red T-Shirts",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/b34550bc6415dcd66892de4ef2837fd9_images.jpg"
+  },
+  {
+    "id": 15528,
+    "gender": "Men",
+    "articleType": "Tshirts",
+    "baseColour": "Black",
+    "season": "Winter",
+    "usage": "Casual",
+    "productDisplayName": "Puma Men Scribble Black Tshirts",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/cd16e955e4b6b3f9d7089c15652a3f00_images.jpg"
+  },
+  {
+    "id": 45258,
+    "gender": "Men",
+    "articleType": "Watches",
+    "baseColour": "Black",
+    "season": "Winter",
+    "usage": "Casual",
+    "productDisplayName": "CASIO EDIFICE Men Black Dial Chronograph Watch ED60",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/b8024bdd3fc47c2b20bd840f89811979_images.jpg"
+  },
+  {
+    "id": 42841,
+    "gender": "Women",
+    "articleType": "Handbags",
+    "baseColour": "Beige",
+    "season": "Summer",
+    "usage": "Casual",
+    "productDisplayName": "French Connection Women Beige Handbag",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/97d3bb4a71c9f7da88305ce9144d8576_images.jpg"
+  },
+  {
+    "id": 22198,
+    "gender": "Men",
+    "articleType": "Casual Shoes",
+    "baseColour": "Black",
+    "season": "Winter",
+    "usage": "Casual",
+    "productDisplayName": "Timberland Men Black Casual Shoes",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/70e74ca34b3b534b19d6b006d5bfad0a_images.jpg"
+  },
+  {
+    "id": 29570,
+    "gender": "Men",
+    "articleType": "Casual Shoes",
+    "baseColour": "Purple",
+    "season": "Summer",
+    "usage": "Casual",
+    "productDisplayName": "Vans Men Classic Slip-On Purple & Black Shoes",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/49f884ddf4420d869ad143857d3bc33d_images.jpg"
+  },
+  {
+    "id": 6628,
+    "gender": "Men",
+    "articleType": "Sports Shoes",
+    "baseColour": "White",
+    "season": "Summer",
+    "usage": "Sports",
+    "productDisplayName": "ADIDAS Men's Lowell White Silver Shoe",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/0707b75d2d44e9cec9d27c944294ddbe_images.jpg"
+  },
+  {
+    "id": 54924,
+    "gender": "Men",
+    "articleType": "Shorts",
+    "baseColour": "Blue",
+    "season": "Summer",
+    "usage": "Casual",
+    "productDisplayName": "Do U Speak Green Men Blue Shorts",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/Do-u-speak-green-Men-Blue-Shorts_40b6775eae62124195817a64d4ae4a93_images.jpg"
+  },
+  {
+    "id": 26538,
+    "gender": "Men",
+    "articleType": "Casual Shoes",
+    "baseColour": "Red",
+    "season": "Winter",
+    "usage": "Casual",
+    "productDisplayName": "ID Men Red Shoes",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/6a6ebc47eaf2fe034bcfd94060a285ba_images.jpg"
+  },
+  {
+    "id": 35913,
+    "gender": "Women",
+    "articleType": "Handbags",
+    "baseColour": "Black",
+    "season": "Summer",
+    "usage": "Casual",
+    "productDisplayName": "Peperone Women Black & White Handbag",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/73bc7d63943231e4df1c7b7600496a3d_images.jpg"
+  },
+  {
+    "id": 49495,
+    "gender": "Men",
+    "articleType": "Casual Shoes",
+    "baseColour": "Khaki",
+    "season": "Summer",
+    "usage": "Casual",
+    "productDisplayName": "Vans Men Khaki Shoes",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/Vans-Men-Khaki-Shoes_dcaf7c703e9c0396650529df2b2a8893_images.jpg"
+  },
+  {
+    "id": 9660,
+    "gender": "Men",
+    "articleType": "Shirts",
+    "baseColour": "Pink",
+    "season": "Winter",
+    "usage": "Casual",
+    "productDisplayName": "Indigo Nation Men Reversible Bling Pink Shirts",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/0be615f02ae1f1cfe78155555a79007c_images.jpg"
+  },
+  {
+    "id": 2288,
+    "gender": "Women",
+    "articleType": "Tshirts",
+    "baseColour": "Black",
+    "season": "Winter",
+    "usage": "Sports",
+    "productDisplayName": "Nike Women Black T-shirt",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/135f9aa8141d682fc218393049c70324_images.jpg"
+  },
+  {
+    "id": 23876,
+    "gender": "Men",
+    "articleType": "Sweatshirts",
+    "baseColour": "Blue",
+    "season": "Winter",
+    "usage": "Casual",
+    "productDisplayName": "ADIDAS Men Blue Sweatshirt",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/fcd52c6506b43f3af116a62c2ea81204_images.jpg"
+  },
+  {
+    "id": 18237,
+    "gender": "Men",
+    "articleType": "Tshirts",
+    "baseColour": "Red",
+    "season": "Winter",
+    "usage": "Casual",
+    "productDisplayName": "Manchester United Men Solid Red Tshirt",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/eba1c1b241555d8afa3f7232ed2c6933_images.jpg"
+  },
+  {
+    "id": 54118,
+    "gender": "Women",
+    "articleType": "Heels",
+    "baseColour": "Black",
+    "season": "Winter",
+    "usage": "Casual",
+    "productDisplayName": "Rocia Women Black Flats",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/8d6fd53f28e010658cdf5c14c43d0cb0_images.jpg"
+  },
+  {
+    "id": 2872,
+    "gender": "Women",
+    "articleType": "Heels",
+    "baseColour": "Brown",
+    "season": "Winter",
+    "usage": "Casual",
+    "productDisplayName": "Catwalk Women Leather Flats",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/4d90e05b9e99e203b3ce191439619bcb_images.jpg"
+  },
+  {
+    "id": 49653,
+    "gender": "Women",
+    "articleType": "Tops",
+    "baseColour": "Green",
+    "season": "Summer",
+    "usage": "Casual",
+    "productDisplayName": "Mineral Women Green Top",
+    "link": "http://assets.myntassets.com/v1/images/style/properties/fe446adf94f9beb301b61bfc75a70bfa_images.jpg"
+  }
+]

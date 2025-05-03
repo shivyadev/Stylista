@@ -1,215 +1,149 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import {
   View,
   Text,
   Image,
   TouchableOpacity,
-  FlatList,
-  StyleSheet,
-  Dimensions,
   ScrollView,
   ActivityIndicator,
   Animated,
+  Alert,
+  Dimensions,
+  Share,
 } from "react-native";
-import {
-  Ionicons,
-  MaterialCommunityIcons,
-  AntDesign,
-  Feather,
-} from "@expo/vector-icons";
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
+import { StatusBar } from "expo-status-bar";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { BlurView } from "expo-blur";
+import { useCombinationStore } from "../../store/useCombinationStore";
+import { generateCombinations } from "../../assets/data/combinationData";
 
 const { width } = Dimensions.get("window");
-const COLORS = {
-  primary: "#6200ee", // Deep purple
-  secondary: "#bb86fc", // Light purple
-  darkPurple: "#3700b3", // Darker purple
-  lightPurple: "#e0d0ff", // Very light purple
-  white: "#ffffff",
-  black: "#121212",
-  lightGrey: "#f5f5f5",
-  darkGray: "#757575",
-  danger: "#CF6679",
-  success: "#4CAF50",
-  background: "#fcfcfc",
-  text: "#333333",
-};
 
 interface ClothingItem {
   id: string;
   type: string;
   image: any;
-  brand?: string;
-  price?: string;
-  url?: string;
   color?: string;
+  material?: string;
+  brand?: string;
 }
 
 interface Combination {
   id: string;
   name: string;
   items: ClothingItem[];
+  style?: string;
+  uploadId: string;
 }
 
-const RecommendationScreen = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const fadeAnim = useState(new Animated.Value(0))[0];
-  const scaleAnim = useState(new Animated.Value(0.9))[0];
-  const [savedCombinations, setSavedCombinations] = useState<string[]>([]);
+const Badge = ({ text, color = "bg-indigo-500" }) => (
+  <View className={`px-2 py-0.5 rounded mr-1.5 mb-1 ${color}`}>
+    <Text className="text-white text-xs font-medium">{text}</Text>
+  </View>
+);
 
-  // Mock user upload data
-  const userUpload = {
-    id: "user-1",
-    type: "Shirt",
-    image: {
-      uri: "https://www.vellure.in/cdn/shop/files/111Untitled-1.jpg?v=1745577051",
-    },
+const AnimatedButton = ({ onPress, icon, text, color = "bg-indigo-900" }) => {
+  const scaleAnim = useRef(new Animated.Value(1)).current;
+
+  const handlePressIn = () => {
+    Animated.spring(scaleAnim, {
+      toValue: 0.95,
+      useNativeDriver: true,
+      speed: 20,
+    }).start();
   };
 
-  // Updated color combinations featuring purple, white, and black
-  const recommendedCombinations: Combination[] = [
-    {
-      id: "1",
-      name: "Purple Elegance",
-      items: [
-        {
-          id: "1",
-          type: "Blazer",
-          brand: "H&M",
-          price: "$89.99",
-          color: "Deep Purple",
-          image: {
-            uri: "http://assets.myntassets.com/v1/images/style/properties/ce35dbfe74af74ea9c9a25b0c3d5995b_images.jpg",
-          },
-        },
-        {
-          id: "2",
-          type: "Pants",
-          brand: "Zara",
-          price: "$59.99",
-          color: "Black",
-          image: {
-            uri: "http://assets.myntassets.com/v1/images/style/properties/9eb119d3dd0976d16ecc5f15f81d9cd7_images.jpg",
-          },
-        },
-        {
-          id: "3",
-          type: "Shoes",
-          brand: "Aldo",
-          price: "$120.00",
-          color: "Black",
-          image: {
-            uri: "http://assets.myntassets.com/v1/images/style/properties/5d9d4df1f52b537f7ecdb693f8b311e4_images.jpg",
-          },
-        },
-        {
-          id: "4",
-          type: "Watch",
-          brand: "Fossil",
-          price: "$150.00",
-          color: "Silver",
-          image: {
-            uri: "http://assets.myntassets.com/v1/images/style/properties/25de793ebfeae19ad56eb89d39a482da_images.jpg",
-          },
-        },
-      ],
-    },
-    {
-      id: "2",
-      name: "Lavender Dreams",
-      items: [
-        {
-          id: "5",
-          type: "Shirt",
-          brand: "Calvin Klein",
-          price: "$65.99",
-          color: "Lavender",
-          image: {
-            uri: "http://assets.myntassets.com/v1/images/style/properties/96b5e5dcd2dc90c7e3b64bd74701e3da_images.jpg",
-          },
-        },
-        {
-          id: "6",
-          type: "Jeans",
-          brand: "Levis",
-          price: "$79.99",
-          color: "White",
-          image: {
-            uri: "http://assets.myntassets.com/v1/images/style/properties/a8dac4f5cff7f296b9bbf870c6b9d473_images.jpg",
-          },
-        },
-        {
-          id: "7",
-          type: "Sneakers",
-          brand: "Nike",
-          price: "$129.99",
-          color: "White",
-          image: {
-            uri: "http://assets.myntassets.com/v1/images/style/properties/Nike-Men-White-Casual-Shoes_fd9872ff8fff33008161e7ea789a72bb_images.jpg",
-          },
-        },
-        {
-          id: "8",
-          type: "Watch",
-          brand: "Casio",
-          price: "$80.00",
-          color: "Silver",
-          image: {
-            uri: "http://assets.myntassets.com/v1/images/style/properties/91e77edbb1c2ab6d8d6ab6da746dfdac_images.jpg",
-          },
-        },
-      ],
-    },
-    {
-      id: "3",
-      name: "Monochrome Magic",
-      items: [
-        {
-          id: "9",
-          type: "Suit",
-          brand: "Calvin Klein",
-          price: "$299.99",
-          color: "Black",
-          image: {
-            uri: "http://assets.myntassets.com/v1/images/style/properties/96b5e5dcd2dc90c7e3b64bd74701e3da_images.jpg",
-          },
-        },
-        {
-          id: "10",
-          type: "Dress Shirt",
-          brand: "Van Heusen",
-          price: "$59.99",
-          color: "White",
-          image: {
-            uri: "http://assets.myntassets.com/v1/images/style/properties/2a5d2ac24bfac96fc86ac7c3a7668f94_images.jpg",
-          },
-        },
-        {
-          id: "11",
-          type: "Dress Shoes",
-          brand: "Clarks",
-          price: "$159.99",
-          color: "Black",
-          image: {
-            uri: "http://assets.myntassets.com/v1/images/style/properties/5d9d4df1f52b537f7ecdb693f8b311e4_images.jpg",
-          },
-        },
-        {
-          id: "12",
-          type: "Tie",
-          brand: "Hugo Boss",
-          price: "$65.00",
-          color: "Deep Purple",
-          image: {
-            uri: "http://assets.myntassets.com/v1/images/style/properties/2a5d2ac24bfac96fc86ac7c3a7668f94_images.jpg",
-          },
-        },
-      ],
-    },
-  ];
+  const handlePressOut = () => {
+    Animated.spring(scaleAnim, {
+      toValue: 1,
+      useNativeDriver: true,
+      speed: 20,
+    }).start();
+  };
 
+  return (
+    <TouchableOpacity
+      onPress={onPress}
+      onPressIn={handlePressIn}
+      onPressOut={handlePressOut}
+      activeOpacity={0.8}
+    >
+      <Animated.View
+        className={`flex-row items-center ${color} py-2 px-4 rounded-lg`}
+        style={{ transform: [{ scale: scaleAnim }] }}
+      >
+        <Ionicons
+          name={icon}
+          size={16}
+          color="#ffffff"
+          style={{ marginRight: 6 }}
+        />
+        <Text className="text-white font-medium text-sm">{text}</Text>
+      </Animated.View>
+    </TouchableOpacity>
+  );
+};
+
+const RecommendationScreen = ({ route }) => {
+  const router = useRouter();
+  const {
+    addCombination,
+    removeCombination,
+    savedCombinations,
+    isCombinationSaved,
+    addUserUpload,
+    getCombinationsForUpload,
+  } = useCombinationStore();
+
+  // Get current uploaded item from route params or use default
+  const uploadedItem = route?.params?.uploadedItem || {
+    id: "user-1",
+    type: "SHIRT",
+    name: "Blue Formal Shirt",
+    image: {
+      uri: "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcSFy8SFrURsjHVXzXMBeuuMf56Di3Kqhlrzos7oKtQNlHglvxJqNAKcbtgorhiFY4EKPVcdrn_awPWelrQopghoKvTl1lFbeT_9jTAs8h1IKtb7Z1eWoovotoz-cNUnVN0b02tSIJg&usqp=CAc",
+    },
+    color: "Royal Blue",
+  };
+
+  // Add or update user upload in store
+  const userUpload = useMemo(() => {
+    return addUserUpload(uploadedItem);
+  }, [uploadedItem?.id]);
+
+  const [isLoading, setIsLoading] = useState(true);
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+  const scaleAnim = useRef(new Animated.Value(0.9)).current;
+
+  const [selectedItem, setSelectedItem] = useState<ClothingItem | null>(null);
+  const [showSaved, setShowSaved] = useState(false);
+  const [expandedCombination, setExpandedCombination] = useState<string | null>(
+    null
+  );
+  const scrollY = useRef(new Animated.Value(0)).current;
+
+  // Generate dynamic recommendations based on user upload
+  const [recommendedCombinations, setRecommendedCombinations] = useState<
+    Combination[]
+  >([]);
+
+  // Get saved combinations for this specific upload
+  const uploadSavedCombinations = useMemo(() => {
+    return getCombinationsForUpload(userUpload.id);
+  }, [userUpload.id, savedCombinations]);
+
+  // Generate recommendations when user upload changes
   useEffect(() => {
-    // Simulate loading data
+    setIsLoading(true);
+
+    // Simulate API delay
     setTimeout(() => {
+      // Generate dynamic combinations from our JSON data
+      const combinations = generateCombinations(userUpload);
+      setRecommendedCombinations(combinations);
+
       setIsLoading(false);
       Animated.parallel([
         Animated.timing(fadeAnim, {
@@ -224,439 +158,456 @@ const RecommendationScreen = () => {
         }),
       ]).start();
     }, 1500);
-  }, []);
+  }, [userUpload.id]);
 
   const handleItemPress = (item: ClothingItem) => {
-    // Haptics feedback would be implemented here in a real app
-    // Show item details in a modal or navigate to product page
-    console.log(`View details for ${item.type}`);
+    setSelectedItem(item);
   };
 
-  const toggleSaveCombination = (combinationId: string) => {
-    setSavedCombinations((prev) => {
-      if (prev.includes(combinationId)) {
-        return prev.filter((id) => id !== combinationId);
+  const handleSave = (combo) => {
+    addCombination({ combo, uploadId: userUpload.id });
+  };
+
+  const handleUnsave = (comboId) => {
+    removeCombination(comboId, userUpload.id);
+  };
+
+  const handleShare = async (item: ClothingItem | Combination) => {
+    try {
+      let message = "";
+      if ("items" in item) {
+        // It's a combination
+        message = `Check out this amazing outfit combination: ${item.name}!\n`;
+        item.items.forEach((piece) => {
+          message += `\n- ${piece.type}`;
+        });
       } else {
-        return [...prev, combinationId];
+        // It's a clothing item
+        message = `Check out this ${item.type}!`;
       }
-    });
+
+      await Share.share({
+        message,
+        title: "Style Recommendation",
+      });
+    } catch (error) {
+      Alert.alert("Error", "Could not share this item");
+    }
+  };
+
+  const toggleExpandCombination = (id: string) => {
+    setExpandedCombination((prev) => (prev === id ? null : id));
+  };
+
+  const filteredCombinations = () => {
+    let combinations = recommendedCombinations;
+
+    if (showSaved) {
+      // Show only saved combinations for this upload
+      const savedIds = uploadSavedCombinations.map((item) => item.combo.id);
+      combinations = combinations.filter((comb) => savedIds.includes(comb.id));
+    }
+
+    return combinations;
   };
 
   const renderCombination = ({ item }: { item: Combination }) => {
-    const isSaved = savedCombinations.includes(item.id);
+    const isSaved = isCombinationSaved(item.id, userUpload.id);
+    const isExpanded = expandedCombination === item.id;
+
+    const toggleSaveCombination = (combo) => {
+      if (isSaved) {
+        handleUnsave(combo.id);
+      } else {
+        handleSave(combo);
+      }
+    };
 
     return (
       <Animated.View
-        style={[
-          styles.combinationContainer,
-          { opacity: fadeAnim, transform: [{ scale: scaleAnim }] },
-        ]}
+        className="bg-gray-50 rounded-xl p-4 mx-4 my-2 shadow"
+        style={{ opacity: fadeAnim, transform: [{ scale: scaleAnim }] }}
       >
-        <View style={styles.combinationHeader}>
-          <View style={styles.combinationTitleContainer}>
-            <Text style={styles.combinationTitle}>{item.name}</Text>
+        <View className="flex-row justify-between items-start mb-3">
+          <View className="flex-1">
+            <Text className="text-base font-semibold text-gray-900">
+              {item.name}
+            </Text>
           </View>
-          <TouchableOpacity
-            style={styles.saveButton}
-            onPress={() => toggleSaveCombination(item.id)}
-          >
-            {isSaved ? (
-              <Ionicons name="bookmark" size={24} color={COLORS.primary} />
-            ) : (
+          <View className="flex-row items-center">
+            <TouchableOpacity
+              className="p-1 mr-2"
+              onPress={() => toggleSaveCombination(item)}
+            >
               <Ionicons
-                name="bookmark-outline"
+                name={isSaved ? "bookmark" : "bookmark-outline"}
                 size={24}
-                color={COLORS.darkGray}
+                color={isSaved ? "#312e81" : "#757575"}
               />
-            )}
-          </TouchableOpacity>
+            </TouchableOpacity>
+            <TouchableOpacity
+              className="p-1 mr-2"
+              onPress={() => handleShare(item)}
+            >
+              <Ionicons name="share-outline" size={22} color="#757575" />
+            </TouchableOpacity>
+            <TouchableOpacity
+              className="p-1"
+              onPress={() => toggleExpandCombination(item.id)}
+            >
+              <Ionicons
+                name={isExpanded ? "chevron-up" : "chevron-down"}
+                size={22}
+                color="#757575"
+              />
+            </TouchableOpacity>
+          </View>
         </View>
+
+        {isExpanded && (
+          <View className="bg-gray-100 rounded-lg p-2 mb-3">
+            <Text className="text-xs text-gray-600 leading-relaxed">
+              This {item.style} outfit will make you stand out for any occasion.
+            </Text>
+          </View>
+        )}
 
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.horizontalScrollContainer}
+          className="pr-4"
         >
           {item.items.map((clothingItem) => (
-            <TouchableOpacity
-              key={clothingItem.id}
-              style={styles.clothingItem}
-              onPress={() => handleItemPress(clothingItem)}
-              activeOpacity={0.7}
-            >
-              <View style={styles.imageContainer}>
-                <Image
-                  source={
-                    typeof clothingItem.image === "string"
-                      ? { uri: clothingItem.image }
-                      : clothingItem.image
-                  }
-                  style={styles.clothingImage}
-                  resizeMode="cover"
-                />
-              </View>
-              <View style={styles.itemDetails}>
-                <Text style={styles.clothingType}>{clothingItem.type}</Text>
-                <TouchableOpacity
-                  style={styles.getLinkButton}
-                  onPress={() => console.log(`Link for ${clothingItem.type}`)}
-                >
-                  <Text style={styles.getLinkText}>Shop Now</Text>
-                </TouchableOpacity>
-              </View>
-            </TouchableOpacity>
+            <View key={clothingItem.id} className="mr-3">
+              <TouchableOpacity
+                onPress={() => handleItemPress(clothingItem)}
+                activeOpacity={0.7}
+                className="relative rounded-xl overflow-hidden bg-gray-100"
+                style={{ width: 132, height: 170 }}
+              >
+                {/* Enhanced Card with better image handling */}
+                <View className="w-full h-40">
+                  <Image
+                    source={{ uri: clothingItem.image.uri }}
+                    className="w-full h-full"
+                    resizeMode="contain"
+                  />
+                </View>
+
+                {/* Enhanced item details */}
+                <View className="absolute bottom-0 left-0 right-0 bg-white bg-opacity-90 p-2">
+                  <Text className="text-sm font-semibold text-gray-800">
+                    {clothingItem.type}
+                  </Text>
+                  {clothingItem.color && (
+                    <Text className="text-xs text-gray-600">
+                      {clothingItem.color}
+                    </Text>
+                  )}
+                </View>
+              </TouchableOpacity>
+            </View>
           ))}
         </ScrollView>
       </Animated.View>
     );
   };
 
-  const renderUserUpload = () => (
-    <Animated.View
-      style={[
-        styles.uploadedItemWrapper,
-        { opacity: fadeAnim, transform: [{ scale: scaleAnim }] },
-      ]}
-    >
-      <Text style={styles.title}>Your Item</Text>
-      <View style={styles.uploadedItem}>
-        <Image source={userUpload.image} style={styles.uploadedImage} />
-        <View style={styles.uploadedDetails}>
-          <Text style={styles.uploadedType}>{userUpload.type}</Text>
-          <TouchableOpacity
-            style={styles.editButton}
-            onPress={() => console.log("Edit item details")}
+  const renderFilterSection = () => (
+    <Animated.View className="my-3 px-4" style={{ opacity: fadeAnim }}>
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        className="py-1 pr-4"
+      >
+        <TouchableOpacity
+          className={`flex-row items-center py-1.5 px-3 rounded-full mr-2 ${
+            !showSaved ? "bg-indigo-900" : "bg-gray-100"
+          }`}
+          onPress={() => setShowSaved(false)}
+        >
+          <Text
+            className={`text-xs font-medium ${
+              !showSaved ? "text-white" : "text-gray-600"
+            }`}
           >
-            <Feather name="edit-2" size={12} color={COLORS.primary} />
-            <Text style={styles.editButtonText}>Edit Details</Text>
+            All
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          className={`flex-row items-center py-1.5 px-3 rounded-full mr-2 ${
+            showSaved ? "bg-indigo-900" : "bg-gray-100"
+          }`}
+          onPress={() => setShowSaved(true)}
+        >
+          <Text
+            className={`text-xs font-medium ${
+              showSaved ? "text-white" : "text-gray-600"
+            }`}
+          >
+            Saved ({uploadSavedCombinations.length})
+          </Text>
+        </TouchableOpacity>
+
+        {uploadSavedCombinations.length > 0 && (
+          <TouchableOpacity
+            className="flex-row items-center"
+            onPress={() =>
+              router.push({
+                pathname: "/saved",
+                params: { uploadId: userUpload.id },
+              })
+            }
+          >
+            <Text className="text-xs text-indigo-900 mr-0.5">
+              View All Saved
+            </Text>
+            <Ionicons name="chevron-forward" size={16} color="#312e81" />
           </TouchableOpacity>
-        </View>
-      </View>
+        )}
+      </ScrollView>
     </Animated.View>
   );
+
+  const renderUserUpload = () => {
+    const headerHeight = scrollY.interpolate({
+      inputRange: [0, 100],
+      outputRange: [140, 80],
+      extrapolate: "clamp",
+    });
+
+    const imageOpacity = scrollY.interpolate({
+      inputRange: [0, 60, 90],
+      outputRange: [1, 0.8, 0],
+      extrapolate: "clamp",
+    });
+
+    const headerPadding = scrollY.interpolate({
+      inputRange: [0, 100],
+      outputRange: [16, 8],
+      extrapolate: "clamp",
+    });
+
+    return (
+      <Animated.View
+        className="bg-indigo-100 rounded-2xl mx-4 mt-2 overflow-hidden"
+        style={{
+          height: headerHeight,
+          paddingVertical: headerPadding,
+        }}
+      >
+        <View className="flex-row items-center h-full">
+          <Animated.View
+            style={{ opacity: imageOpacity }}
+            className="w-24 h-full flex justify-center items-center"
+          >
+            <Image
+              source={userUpload.image}
+              className="w-full h-full rounded-l-2xl"
+              resizeMode="contain"
+            />
+          </Animated.View>
+          <View className="ml-4 flex-1">
+            <Text className="text-lg font-bold text-indigo-900 mb-1">
+              {userUpload.type}
+            </Text>
+            <Text className="text-base font-medium text-gray-700 mb-1">
+              {userUpload.name}
+            </Text>
+
+            <Animated.View
+              style={{ opacity: imageOpacity }}
+              className="flex-row flex-wrap items-center mt-1"
+            >
+              <Text className="text-xs text-gray-600">{userUpload.color}</Text>
+            </Animated.View>
+          </View>
+        </View>
+      </Animated.View>
+    );
+  };
+
+  const renderItemDetailCard = () => {
+    if (!selectedItem) return null;
+
+    return (
+      <View className="absolute inset-0 justify-center items-center z-50">
+        <BlurView
+          intensity={80}
+          tint="dark"
+          className="absolute inset-0 justify-center items-center"
+        >
+          <View className="bg-white rounded-3xl w-10/12 max-h-4/5 overflow-hidden shadow-lg">
+            <TouchableOpacity
+              className="absolute top-3 right-3 z-10 bg-white bg-opacity-80 rounded-full"
+              onPress={() => setSelectedItem(null)}
+            >
+              <Ionicons name="close-circle" size={28} color="#4338ca" />
+            </TouchableOpacity>
+
+            <View className="w-full h-64 bg-gray-100">
+              <Image
+                source={{
+                  uri:
+                    selectedItem.image?.uri ||
+                    "https://via.placeholder.com/150?text=No+Image",
+                }}
+                className="w-full h-full"
+                resizeMode="contain"
+              />
+            </View>
+
+            <View className="p-4">
+              <View className="flex-row justify-between items-center mb-3">
+                <Text className="text-xl font-bold text-gray-900">
+                  {selectedItem.type}
+                </Text>
+              </View>
+
+              {/* Enhanced item details */}
+              <View className="mb-4">
+                {selectedItem.color && (
+                  <View className="flex-row mb-1">
+                    <Text className="text-sm font-medium text-gray-700">
+                      Color:{" "}
+                    </Text>
+                    <Text className="text-sm text-gray-600">
+                      {selectedItem.material}
+                    </Text>
+                  </View>
+                )}
+                {selectedItem.brand && (
+                  <View className="flex-row mb-1">
+                    <Text className="text-sm font-medium text-gray-700">
+                      Brand:{" "}
+                    </Text>
+                    <Text className="text-sm text-gray-600">
+                      {selectedItem.brand}
+                    </Text>
+                  </View>
+                )}
+              </View>
+
+              <View className="flex-row justify-between mt-2">
+                <AnimatedButton
+                  onPress={() => handleShare(selectedItem)}
+                  icon="share-social-outline"
+                  text="Share"
+                  color="bg-indigo-900"
+                />
+              </View>
+            </View>
+          </View>
+        </BlurView>
+      </View>
+    );
+  };
+
+  const renderEmptyState = () => {
+    const filtered = filteredCombinations();
+    if (filtered.length === 0) {
+      return (
+        <View className="items-center justify-center py-8">
+          <MaterialCommunityIcons name="hanger" size={64} color="#9e9e9e" />
+          <Text className="text-lg font-semibold text-gray-700 mt-4 mb-2">
+            No combinations found
+          </Text>
+          <Text className="text-sm text-gray-500 text-center mx-8 mb-4">
+            {showSaved
+              ? "You haven't saved any combinations yet for this item."
+              : "No combinations match your current filters."}
+          </Text>
+          <TouchableOpacity
+            className="bg-indigo-900 py-2 px-4 rounded-lg"
+            onPress={() => {
+              setShowSaved(false);
+            }}
+          >
+            <Text className="text-white font-medium">
+              View All Combinations
+            </Text>
+          </TouchableOpacity>
+        </View>
+      );
+    }
+    return null;
+  };
 
   const renderContent = () => {
     if (isLoading) {
       return (
-        <View style={styles.loadingContainer}>
-          <ActivityIndicator size="large" color={COLORS.primary} />
-          <Text style={styles.loadingText}>
-            Finding perfect combinations...
+        <View className="flex-1 justify-center items-center">
+          <ActivityIndicator size="large" color="#6200ee" />
+          <Text className="mt-3 text-sm text-gray-600 font-medium">
+            Finding perfect combinations for your {userUpload.type}...
           </Text>
         </View>
       );
     }
 
+    const filtered = filteredCombinations();
+
     return (
       <>
-        {renderUserUpload()}
-        <Animated.View style={{ opacity: fadeAnim }}>
-          <View style={styles.subtitleContainer}>
-            <Text style={styles.subtitle}>Recommended for You</Text>
-            {savedCombinations.length > 0 && (
-              <TouchableOpacity
-                style={styles.savedButton}
-                onPress={() => console.log("View saved combinations")}
+        <StatusBar style="dark" />
+
+        <Animated.FlatList
+          data={filtered}
+          renderItem={renderCombination}
+          keyExtractor={(item) => item.id}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: 100 }}
+          ListHeaderComponent={
+            <>
+              {renderUserUpload()}
+              {renderFilterSection()}
+              <Animated.View
+                className="flex-row justify-between items-center px-4 mb-2 mt-1"
+                style={{ opacity: fadeAnim }}
               >
-                <Text style={styles.savedButtonText}>
-                  Saved ({savedCombinations.length})
+                <Text className="text-lg font-semibold text-gray-900">
+                  {showSaved
+                    ? "Saved Combinations"
+                    : "Recommended Combinations"}
                 </Text>
-                <Ionicons
-                  name="chevron-forward"
-                  size={16}
-                  color={COLORS.primary}
-                />
-              </TouchableOpacity>
-            )}
-          </View>
-          <FlatList
-            data={recommendedCombinations}
-            renderItem={renderCombination}
-            keyExtractor={(item) => item.id}
-            contentContainerStyle={styles.recommendationsList}
-            showsVerticalScrollIndicator={false}
-          />
-        </Animated.View>
+                {uploadSavedCombinations.length > 0 && !showSaved && (
+                  <TouchableOpacity
+                    className="flex-row items-center"
+                    onPress={() => setShowSaved(true)}
+                  >
+                    <Text className="text-xs text-indigo-900 mr-0.5">
+                      Saved ({uploadSavedCombinations.length})
+                    </Text>
+                    <Ionicons
+                      name="chevron-forward"
+                      size={16}
+                      color="#312e81"
+                    />
+                  </TouchableOpacity>
+                )}
+              </Animated.View>
+              {renderEmptyState()}
+            </>
+          }
+          ListEmptyComponent={renderEmptyState}
+          onScroll={Animated.event(
+            [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+            { useNativeDriver: false }
+          )}
+          scrollEventThrottle={16}
+        />
+
+        {renderItemDetailCard()}
       </>
     );
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <TouchableOpacity style={styles.backButton}>
-          <Ionicons name="arrow-back" size={24} color={COLORS.black} />
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>Style Recommendations</Text>
-        <TouchableOpacity style={styles.menuButton}>
-          <Ionicons name="ellipsis-horizontal" size={24} color={COLORS.black} />
-        </TouchableOpacity>
-      </View>
-
-      <ScrollView
-        contentContainerStyle={styles.scrollContainer}
-        showsVerticalScrollIndicator={false}
-      >
-        {renderContent()}
-      </ScrollView>
-
-      <TouchableOpacity style={styles.fabButton}>
-        <Ionicons name="camera-outline" size={24} color={COLORS.white} />
-        <Text style={styles.fabText}>Upload New</Text>
-      </TouchableOpacity>
-    </View>
+    <SafeAreaView className="flex-1 bg-white relative">
+      {renderContent()}
+    </SafeAreaView>
   );
 };
 
 export default RecommendationScreen;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.background,
-  },
-  header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingHorizontal: 16,
-    paddingTop: 48,
-    paddingBottom: 16,
-    backgroundColor: COLORS.white,
-    borderBottomWidth: 1,
-    borderBottomColor: "#f0f0f0",
-    elevation: 2,
-  },
-  headerTitle: {
-    fontSize: 18,
-    fontWeight: "600",
-    color: COLORS.black,
-  },
-  backButton: {
-    padding: 8,
-  },
-  menuButton: {
-    padding: 8,
-  },
-  scrollContainer: {
-    paddingBottom: 100,
-  },
-  loadingContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    paddingVertical: 60,
-  },
-  loadingText: {
-    marginTop: 12,
-    color: COLORS.darkGray,
-    fontSize: 14,
-  },
-  uploadedItemWrapper: {
-    padding: 16,
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 12,
-    color: COLORS.black,
-  },
-  uploadedItem: {
-    flexDirection: "row",
-    alignItems: "center",
-    padding: 16,
-    backgroundColor: COLORS.white,
-    borderRadius: 16,
-    shadowColor: COLORS.black,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
-    shadowRadius: 8,
-    elevation: 2,
-  },
-  uploadedImage: {
-    width: 100,
-    height: 100,
-    borderRadius: 12,
-    marginRight: 16,
-  },
-  uploadedDetails: {
-    flex: 1,
-  },
-  uploadedType: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: COLORS.text,
-    marginBottom: 4,
-  },
-  uploadedBrand: {
-    fontSize: 14,
-    color: COLORS.darkGray,
-    marginBottom: 6,
-  },
-  uploadedColorContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 8,
-  },
-  colorCircle: {
-    width: 12,
-    height: 12,
-    borderRadius: 6,
-    marginRight: 6,
-    borderWidth: 0.5,
-    borderColor: "#ddd",
-  },
-  uploadedColor: {
-    fontSize: 14,
-    color: COLORS.darkGray,
-  },
-  editButton: {
-    flexDirection: "row",
-    alignItems: "center",
-    paddingVertical: 6,
-    paddingHorizontal: 12,
-    borderRadius: 16,
-    borderWidth: 1,
-    borderColor: COLORS.primary,
-    alignSelf: "flex-start",
-    marginTop: 4,
-  },
-  editButtonText: {
-    marginLeft: 4,
-    fontSize: 12,
-    color: COLORS.primary,
-    fontWeight: "500",
-  },
-  subtitleContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingHorizontal: 16,
-    marginBottom: 12,
-  },
-  subtitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: COLORS.black,
-  },
-  savedButton: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  savedButtonText: {
-    fontSize: 14,
-    color: COLORS.primary,
-    fontWeight: "500",
-  },
-  recommendationsList: {
-    paddingHorizontal: 16,
-  },
-  combinationContainer: {
-    backgroundColor: COLORS.white,
-    borderRadius: 16,
-    padding: 16,
-    marginBottom: 16,
-    shadowColor: COLORS.black,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 3,
-  },
-  combinationHeader: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "flex-start",
-    marginBottom: 12,
-  },
-  combinationTitleContainer: {
-    flex: 1,
-  },
-  combinationTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 4,
-    color: COLORS.black,
-  },
-  saveButton: {
-    padding: 4,
-  },
-  ratingContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  ratingText: {
-    fontSize: 13,
-    color: COLORS.darkGray,
-    marginLeft: 4,
-  },
-  horizontalScrollContainer: {
-    paddingRight: 16,
-  },
-  clothingItem: {
-    width: 160,
-    marginRight: 12,
-    borderRadius: 12,
-    backgroundColor: COLORS.lightGrey,
-    overflow: "hidden",
-  },
-  imageContainer: {
-    position: "relative",
-  },
-  clothingImage: {
-    width: "100%",
-    height: 160,
-    borderTopLeftRadius: 12,
-    borderTopRightRadius: 12,
-  },
-  itemDetails: {
-    padding: 12,
-  },
-  clothingType: {
-    fontWeight: "600",
-    fontSize: 14,
-    marginBottom: 6,
-    color: COLORS.black,
-  },
-  colorContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 8,
-  },
-  colorText: {
-    fontSize: 12,
-    color: COLORS.darkGray,
-  },
-  getLinkButton: {
-    backgroundColor: COLORS.primary,
-    paddingVertical: 6,
-    paddingHorizontal: 12,
-    borderRadius: 8,
-    alignItems: "center",
-  },
-  getLinkText: {
-    color: COLORS.white,
-    fontWeight: "500",
-    fontSize: 12,
-  },
-  fabButton: {
-    position: "absolute",
-    bottom: 24,
-    right: 24,
-    backgroundColor: COLORS.primary,
-    flexDirection: "row",
-    alignItems: "center",
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    borderRadius: 30,
-    shadowColor: COLORS.black,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 5,
-    elevation: 5,
-  },
-  fabText: {
-    color: COLORS.white,
-    fontWeight: "600",
-    marginLeft: 8,
-  },
-});

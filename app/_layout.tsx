@@ -1,7 +1,10 @@
 import { SplashScreen, Stack } from "expo-router";
 import "./global.css";
 import { useFonts } from "expo-font";
-import { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useRouter } from "expo-router";
+import { View, ActivityIndicator } from "react-native";
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
@@ -16,6 +19,7 @@ export default function RootLayout() {
     PlayfairMediumItalic: require("../assets/fonts/PlayfairDisplay-MediumItalic.ttf"),
     PlayfairSemiBold: require("../assets/fonts/PlayfairDisplay-SemiBold.ttf"),
     PlayfairSemiBoldItalic: require("../assets/fonts/PlayfairDisplay-SemiBoldItalic.ttf"),
+    WindSongMedium: require("../assets/fonts/WindSong-Medium.ttf"),
   });
 
   useEffect(() => {

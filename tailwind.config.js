@@ -25,6 +25,7 @@ module.exports = {
         playfairmediumitalic: ["PlayfairMediumItalic", "sans-serif"],
         playfairsemi: ["PlayfairSemiBold", "sans-serif"],
         playfairsemiitalic: ["PlayfairSemiBoldItalic", "sans-serif"],
+        windsongmedium: ["WindSongMedium", "sans-serif"],
       },
     },
   },

@@ -95,6 +95,10 @@
       {
         "asset": "./assets/fonts/PlayfairDisplay-SemiBoldItalic.ttf",
         "family": "PlayfairDisplay"
+      },
+      {
+        "asset": "./assets/fonts/WindSong-Medium.ttf",
+        "family": "WindSong"
       }
     ],
     "experiments": {

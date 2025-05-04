@@ -68,7 +68,7 @@ const SignIn = () => {
                 className="mt-4 bg-purple-900 py-4 rounded-full shadow-md"
                 onPress={() => {
                   // Handle sign-in logic here
-                  router.push("/onboarding");
+                  router.push("/(root)/(tabs)/home");
                 }}
               >
                 <Text className="text-white text-center font-semibold text-lg">

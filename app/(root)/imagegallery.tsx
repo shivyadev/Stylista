@@ -587,7 +587,6 @@ const RecommendationScreen = ({ route }) => {
                   </TouchableOpacity>
                 )}
               </Animated.View>
-              {renderEmptyState()}
             </>
           }
           ListEmptyComponent={renderEmptyState}

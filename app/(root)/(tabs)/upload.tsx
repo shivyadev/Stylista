@@ -8,6 +8,9 @@ import {
   ActivityIndicator,
   Modal,
   Pressable,
+  ScrollView,
+  Platform,
+  KeyboardAvoidingView,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { useRouter } from "expo-router";
@@ -154,167 +157,181 @@ const ImagePickerExample: React.FC = () => {
   );
 
   return (
-    <SafeAreaView className="flex-1 bg-purple-50">
-      <View className="flex-1 px-6 py-8">
-        <Text className="text-2xl font-abril font-bold text-center mb-6 text-black">
-          Upload Your Outfit
-        </Text>
-
-        <TouchableOpacity
-          className="w-full aspect-square bg-purple-50 rounded-3xl overflow-hidden mb-4 items-center justify-center border-2 border-dashed border-purple-200"
-          onPress={() => setModalVisible(true)}
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      className="flex-1"
+    >
+      <SafeAreaView edges={["top"]} className="flex-1 bg-purple-50">
+        <ScrollView
+          className="flex-1 px-6 pt-8"
+          contentContainerStyle={{ paddingBottom: 120 }}
+          showsVerticalScrollIndicator={false}
         >
-          {imageUri ? (
-            <Image
-              source={{ uri: imageUri }}
-              className="w-full h-full"
-              resizeMode="cover"
-            />
-          ) : (
-            <View className="items-center justify-center">
+          <Text className="text-2xl font-abril font-bold text-center mb-6 text-black">
+            Upload Your Outfit
+          </Text>
+
+          <TouchableOpacity
+            className="w-full aspect-square bg-purple-50 rounded-3xl overflow-hidden mb-4 items-center justify-center border-2 border-dashed border-purple-200"
+            onPress={() => setModalVisible(true)}
+          >
+            {imageUri ? (
               <Image
-                source={images.uploadicon}
-                className="w-64 h-64"
+                source={{ uri: imageUri }}
+                className="w-full h-full"
                 resizeMode="cover"
               />
-              <Text className="text-black mt-4 text-center">
-                Tap to select an image
-              </Text>
+            ) : (
+              <View className="items-center justify-center">
+                <Image
+                  source={images.uploadicon}
+                  className="w-64 h-64"
+                  resizeMode="cover"
+                />
+                <Text className="text-black mt-4 text-center">
+                  Tap to select an image
+                </Text>
+              </View>
+            )}
+          </TouchableOpacity>
+
+          <View className="mb-6">
+            <Text className="text-base font-semibold mb-3">Select Gender</Text>
+            <View className="flex-row space-x-6 gap-3">
+              <SelectionButton
+                selected={gender === "male"}
+                label="Male"
+                icon={
+                  <User2
+                    size={18}
+                    color={gender === "male" ? "white" : "black"}
+                  />
+                }
+                onPress={() => setGender("male")}
+              />
+              <SelectionButton
+                selected={gender === "female"}
+                label="Female"
+                icon={
+                  <User2
+                    size={18}
+                    color={gender === "female" ? "white" : "black"}
+                  />
+                }
+                onPress={() => setGender("female")}
+              />
+            </View>
+          </View>
+
+          <View className="mb-8">
+            <Text className="text-base font-semibold mb-3">
+              Select Occasion
+            </Text>
+            <View className="flex-row flex-wrap gap-3">
+              <SelectionButton
+                selected={occasion === "formal"}
+                label="Formal"
+                icon={
+                  <Briefcase
+                    size={18}
+                    color={occasion === "formal" ? "white" : "black"}
+                  />
+                }
+                onPress={() => setOccasion("formal")}
+              />
+              <SelectionButton
+                selected={occasion === "casual"}
+                label="Casual"
+                icon={
+                  <ImagePlus
+                    size={18}
+                    color={occasion === "casual" ? "white" : "black"}
+                  />
+                }
+                onPress={() => setOccasion("casual")}
+              />
+              <SelectionButton
+                selected={occasion === "sports"}
+                label="Sports"
+                icon={
+                  <Dumbbell
+                    size={18}
+                    color={occasion === "sports" ? "white" : "black"}
+                  />
+                }
+                onPress={() => setOccasion("sports")}
+              />
+            </View>
+          </View>
+
+          <TouchableOpacity
+            className="w-full bg-purple-900 py-4 rounded-xl mb-20 items-center"
+            onPress={
+              () => uploadImage()
+              /*router.push("/(root)/imagegallery")*/
+            }
+          >
+            <Text className="text-white font-semibold text-lg">Upload</Text>
+          </TouchableOpacity>
+
+          {uploading && (
+            <View className="absolute inset-0 items-center justify-center bg-purple-900/50">
+              <ActivityIndicator size="large" color="#ffffff" />
+              <Text className="text-white mt-4">Uploading image...</Text>
             </View>
           )}
-        </TouchableOpacity>
+        </ScrollView>
 
-        <View className="mb-6">
-          <Text className="text-base font-semibold mb-3">Select Gender</Text>
-          <View className="flex-row space-x-6 gap-3">
-            <SelectionButton
-              selected={gender === "male"}
-              label="Male"
-              icon={
-                <User2
-                  size={18}
-                  color={gender === "male" ? "white" : "black"}
-                />
-              }
-              onPress={() => setGender("male")}
-            />
-            <SelectionButton
-              selected={gender === "female"}
-              label="Female"
-              icon={
-                <User2
-                  size={18}
-                  color={gender === "female" ? "white" : "black"}
-                />
-              }
-              onPress={() => setGender("female")}
-            />
-          </View>
-        </View>
-
-        <View className="mb-8">
-          <Text className="text-base font-semibold mb-3">Select Occasion</Text>
-          <View className="flex-row flex-wrap gap-3">
-            <SelectionButton
-              selected={occasion === "formal"}
-              label="Formal"
-              icon={
-                <Briefcase
-                  size={18}
-                  color={occasion === "formal" ? "white" : "black"}
-                />
-              }
-              onPress={() => setOccasion("formal")}
-            />
-            <SelectionButton
-              selected={occasion === "casual"}
-              label="Casual"
-              icon={
-                <ImagePlus
-                  size={18}
-                  color={occasion === "casual" ? "white" : "black"}
-                />
-              }
-              onPress={() => setOccasion("casual")}
-            />
-            <SelectionButton
-              selected={occasion === "sports"}
-              label="Sports"
-              icon={
-                <Dumbbell
-                  size={18}
-                  color={occasion === "sports" ? "white" : "black"}
-                />
-              }
-              onPress={() => setOccasion("sports")}
-            />
-          </View>
-        </View>
-
-        <TouchableOpacity
-          className="w-full bg-purple-900 py-4 rounded-xl mb-4 items-center"
-          onPress={() => router.push("/(root)/imagegallery")}
+        <Modal
+          transparent
+          animationType="slide"
+          visible={modalVisible}
+          onRequestClose={() => setModalVisible(false)}
         >
-          <Text className="text-white font-semibold text-lg">Upload</Text>
-        </TouchableOpacity>
-
-        {uploading && (
-          <View className="absolute inset-0 items-center justify-center bg-purple-900/50">
-            <ActivityIndicator size="large" color="#ffffff" />
-            <Text className="text-white mt-4">Uploading image...</Text>
-          </View>
-        )}
-      </View>
-
-      <Modal
-        transparent
-        animationType="slide"
-        visible={modalVisible}
-        onRequestClose={() => setModalVisible(false)}
-      >
-        <Pressable
-          className="flex-1 bg-black/60 items-center justify-center"
-          onPress={() => setModalVisible(false)}
-        >
-          <View className="bg-white rounded-3xl p-6 w-4/5 max-w-sm">
-            <Text className="text-xl font-bold text-center mb-6 text-purple-800">
-              Select Image Source
-            </Text>
-
-            <TouchableOpacity
-              className="bg-purple-600 py-4 rounded-xl mb-3 flex-row items-center justify-center space-x-3"
-              onPress={() => {
-                setModalVisible(false);
-                takePhoto();
-              }}
-            >
-              <Camera size={20} color="white" />
-              <Text className="text-white font-semibold">Take Photo</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              className="bg-purple-600 py-4 rounded-xl mb-6 flex-row items-center justify-center space-x-3"
-              onPress={() => {
-                setModalVisible(false);
-                pickImage();
-              }}
-            >
-              <ImagePlus size={20} color="white" />
-              <Text className="text-white font-semibold">
-                Choose from Gallery
+          <Pressable
+            className="flex-1 bg-black/60 items-center justify-center"
+            onPress={() => setModalVisible(false)}
+          >
+            <View className="bg-white rounded-3xl p-6 w-4/5 max-w-sm">
+              <Text className="text-xl font-bold text-center mb-6 text-purple-800">
+                Select Image Source
               </Text>
-            </TouchableOpacity>
 
-            <TouchableOpacity
-              className="items-center"
-              onPress={() => setModalVisible(false)}
-            >
-              <Text className="text-gray-500 font-medium">Cancel</Text>
-            </TouchableOpacity>
-          </View>
-        </Pressable>
-      </Modal>
-    </SafeAreaView>
+              <TouchableOpacity
+                className="bg-purple-600 py-4 rounded-xl mb-3 flex-row items-center justify-center space-x-3"
+                onPress={() => {
+                  setModalVisible(false);
+                  takePhoto();
+                }}
+              >
+                <Camera size={20} color="white" />
+                <Text className="text-white font-semibold">Take Photo</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                className="bg-purple-600 py-4 rounded-xl mb-6 flex-row items-center justify-center space-x-3"
+                onPress={() => {
+                  setModalVisible(false);
+                  pickImage();
+                }}
+              >
+                <ImagePlus size={20} color="white" />
+                <Text className="text-white font-semibold">
+                  Choose from Gallery
+                </Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                className="items-center"
+                onPress={() => setModalVisible(false)}
+              >
+                <Text className="text-gray-500 font-medium">Cancel</Text>
+              </TouchableOpacity>
+            </View>
+          </Pressable>
+        </Modal>
+      </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 };
 

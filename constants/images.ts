@@ -8,6 +8,7 @@ import signup from "@/assets/images/Signup.png";
 import signin from "@/assets/images/Signin.png";
 import uploadicon from "@/assets/images/Uploadicon.png";
 import uploadimage from "@/assets/images/IMG-20250430-WA0011.jpg";
+import stylistaheader from "@/assets/images/Stylistaheader.png";
 
 export default {
   adaptive_icon,
@@ -20,4 +21,5 @@ export default {
   signin,
   uploadicon,
   uploadimage,
+  stylistaheader,
 };

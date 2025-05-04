@@ -1,34 +1,45 @@
 import { Tabs } from "expo-router";
-import { Home, User, Upload, Bookmark } from "lucide-react-native";
+import { Home, Upload, Bookmark, LogOut } from "lucide-react-native";
 import { BlurView } from "expo-blur";
 import {
   View,
   Platform,
   Text,
+  Alert,
   Pressable,
   SafeAreaView,
   Dimensions,
+  Image,
+  ImageBackground,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import { useRouter } from "expo-router";
 
 const { width } = Dimensions.get("window");
 
 export default function TabLayout() {
+  const router = useRouter();
+
+  const handleLogout = () => {
+    Alert.alert("Logout", "Are you sure you want to logout?", [
+      { text: "Cancel", style: "cancel" },
+      {
+        text: "Logout",
+        style: "destructive",
+        onPress: () => {
+          router.replace("/(auth)/onboarding");
+        },
+      },
+    ]);
+  };
+
   return (
     <SafeAreaView className="flex-1 bg-white">
-      {/* Gradient Header */}
-      <LinearGradient
-        colors={["#312e81", "#4c1d95"]} // indigo-900 to purple-900
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 0 }}
-        className={`px-5 pb-3 flex-row justify-between items-center ${
-          Platform.OS === "android" ? "pt-10" : "pt-0"
-        }`}
-      >
-        <Text className="text-white text-2xl font-playfairextrabold">
-          Stylista
-        </Text>
-      </LinearGradient>
+      {/* Gradient Header with Logout Button */}
+
+      <Pressable onPress={handleLogout} className="absolute right-5 top-3">
+        <LogOut color="#1A237E" size={24} />
+      </Pressable>
 
       {/* Tabs */}
       <Tabs
@@ -68,7 +79,7 @@ export default function TabLayout() {
         }}
       >
         <Tabs.Screen
-          name="index"
+          name="home"
           options={{
             tabBarLabel: "Home",
             tabBarIcon: ({ color, size }) => (
@@ -94,15 +105,7 @@ export default function TabLayout() {
             ),
           }}
         />
-        <Tabs.Screen
-          name="profile"
-          options={{
-            tabBarLabel: "Profile",
-            tabBarIcon: ({ color, size }) => (
-              <User color={color} size={size} strokeWidth={2} />
-            ),
-          }}
-        />
+        {/* Removed the Profile tab completely */}
       </Tabs>
     </SafeAreaView>
   );

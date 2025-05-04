@@ -15,6 +15,7 @@ import { useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useCombinationStore } from "../../../store/useCombinationStore";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const SavedItemsScreen = ({ route }) => {
   const router = useRouter();
@@ -232,7 +233,7 @@ const SavedItemsScreen = ({ route }) => {
           className="mt-3 flex-row items-center justify-center py-2 bg-gray-100 rounded-lg"
           onPress={() =>
             router.push({
-              pathname: "/recommendation",
+              pathname: "/(root)/(tabs)/home",
               params: {
                 uploadedItem: userUploads.find((u) => u.id === item.uploadId),
               },

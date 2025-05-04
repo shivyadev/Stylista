@@ -1,4 +1,3 @@
-// app/(auth)/onboarding.tsx
 import {
   View,
   Text,
@@ -10,7 +9,7 @@ import React from "react";
 import { useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { LinearGradient } from "expo-linear-gradient";
-import images from "@/constants/images"; // make sure this import works
+import images from "@/constants/images";
 
 export default function Onboarding() {
   const router = useRouter();
@@ -18,7 +17,7 @@ export default function Onboarding() {
   const completeOnboarding = async () => {
     try {
       await AsyncStorage.setItem("hasOnboarded", "true");
-      router.replace("/(auth)/signup"); // go to signup
+      router.replace("/(auth)/signup");
     } catch (err) {
       console.error("Failed to save onboarding status", err);
     }
@@ -41,7 +40,7 @@ export default function Onboarding() {
           <Text className="text-5xl text-black font-abril mb-2">Discover</Text>
           <Text className="text-5xl text-black font-abril mb-2">And Shop</Text>
 
-          <Text className="text-lg text-black font-playfairmediumitalic text-center mt-4 opacity-80">
+          <Text className="text-lg text-black font-PlayfairMediumItalic text-center mt-4 opacity-80">
             Snap your style. Find the look. Own your vibe.
           </Text>
 
@@ -49,7 +48,7 @@ export default function Onboarding() {
             className="mt-6 bg-black px-6 py-3 rounded-[48px]"
             onPress={completeOnboarding}
           >
-            <Text className="text-white text-base font-semibold pr-5 pl-5">
+            <Text className="text-white text-base font-semibold px-5">
               Get Started
             </Text>
           </TouchableOpacity>

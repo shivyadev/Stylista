@@ -8,10 +8,13 @@ import {
   ActivityIndicator,
   RefreshControl,
   Animated,
+  Linking,
+  Modal,
 } from "react-native";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
+import * as Haptics from "expo-haptics";
 import products from "../../../assets/styles.json";
 
 // Types
@@ -45,12 +48,13 @@ const HomePage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [activeFilter, setActiveFilter] = useState<FilterOption | null>(null);
+  const [selectedItem, setSelectedItem] = useState<Product | null>(null);
 
   // Animation values
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const scaleAnim = useRef(new Animated.Value(0.95)).current;
 
-  // Available filters derived from data
+  // Available filters
   const filters = {
     gender: [...new Set(products.map((p: Product) => p.gender))],
   };
@@ -95,9 +99,8 @@ const HomePage: React.FC = () => {
     }, 800);
   };
 
-  const shuffleArray = (arr: Product[]): Product[] => {
-    return [...arr].sort(() => Math.random() - 0.5);
-  };
+  const shuffleArray = (arr: Product[]): Product[] =>
+    [...arr].sort(() => Math.random() - 0.5);
 
   const loadMore = () => {
     setVisibleCount((prev) =>
@@ -118,6 +121,12 @@ const HomePage: React.FC = () => {
     } else {
       setActiveFilter({ type, value });
     }
+  };
+
+  const openLink = (url: string) => {
+    Linking.openURL(url).catch((err) =>
+      console.error("Failed to open link", err)
+    );
   };
 
   const FilterChips: React.FC = () => (
@@ -167,6 +176,10 @@ const HomePage: React.FC = () => {
           shadowOpacity: 0.1,
           shadowRadius: 8,
           elevation: 3,
+        }}
+        onPress={() => {
+          setSelectedItem(item);
+          Haptics.selectionAsync();
         }}
       >
         <View className="relative">
@@ -232,22 +245,6 @@ const HomePage: React.FC = () => {
     );
   };
 
-  if (isLoading) {
-    return (
-      <View className="flex-1 bg-gray-50 justify-center items-center">
-        <ActivityIndicator size="large" color="#4c1d95" />
-        <Text className="mt-4 text-indigo-900 font-medium">
-          Loading collection...
-        </Text>
-        <View className="mt-6 flex-row">
-          <View className="bg-purple-200 w-3 h-3 rounded-full mx-1 animate-pulse" />
-          <View className="bg-purple-400 w-3 h-3 rounded-full mx-1 animate-pulse" />
-          <View className="bg-purple-600 w-3 h-3 rounded-full mx-1 animate-pulse" />
-        </View>
-      </View>
-    );
-  }
-
   return (
     <View className="flex-1 bg-gray-50">
       <FlatList<Product>
@@ -312,6 +309,49 @@ const HomePage: React.FC = () => {
           />
         }
       />
+
+      {/* Modal Popup for Product Details */}
+      <Modal
+        visible={selectedItem !== null}
+        transparent
+        animationType="fade"
+        onRequestClose={() => setSelectedItem(null)}
+      >
+        <View className="flex-1 justify-center items-center bg-black bg-opacity-60 px-4">
+          <View className="bg-white rounded-2xl w-full max-w-md p-6">
+            <Image
+              source={{ uri: selectedItem?.link }}
+              className="w-full h-56 rounded-xl mb-4"
+              resizeMode="cover"
+            />
+            <Text className="text-lg font-bold text-gray-800 mb-2">
+              {selectedItem?.productDisplayName}
+            </Text>
+            <Text className="text-sm text-gray-500 mb-1">
+              {selectedItem?.articleType} · {selectedItem?.season}
+            </Text>
+            <Text className="text-sm text-gray-500 mb-4">
+              Color: {selectedItem?.baseColour} | Gender: {selectedItem?.gender}
+            </Text>
+            <TouchableOpacity
+              onPress={() => openLink(selectedItem?.link || "")}
+              className="bg-indigo-900 px-6 py-3 rounded-full mb-3"
+            >
+              <Text className="text-white font-semibold text-center">
+                Get Link
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => setSelectedItem(null)}
+              className="mt-2"
+            >
+              <Text className="text-center text-gray-500 font-medium">
+                Close
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };

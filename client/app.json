@@ -1,0 +1,120 @@
+{
+  "expo": {
+    "name": "ABC",
+    "slug": "ABC",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "myapp",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSCameraUsageDescription": "This app needs access to your camera to take photos for uploads",
+        "NSPhotoLibraryUsageDescription": "This app needs access to your photo library to select images for uploads"
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/adaptive_icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.READ_MEDIA_IMAGES"
+      ]
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/images/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/images/outfit.png",
+          "resizeMode": "cover",
+          "backgroundColor": "#ffffff",
+          "imageWidth": "600"
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you share them with your friends.",
+          "cameraPermission": "The app accesses your camera to let you take photos for uploading."
+        }
+      ]
+    ],
+    "fonts": [
+      {
+        "asset": "./assets/fonts/SpaceMono-Regular.ttf",
+        "family": "SpaceMono"
+      },
+      {
+        "asset": "./assets/fonts/AbrilFatface-Regular.ttf",
+        "family": "AbrilRegular"
+      },
+      {
+        "asset": "./assets/fonts/PlayfairDisplay-Regular.ttf",
+        "family": "PlayfairDisplay"
+      },
+      {
+        "asset": "./assets/fonts/PlayfairDisplay-Bold.ttf",
+        "family": "PlayfairDisplay"
+      },
+      {
+        "asset": "./assets/fonts/PlayfairDisplay-BoldItalic.ttf",
+        "family": "PlayfairDisplay"
+      },
+      {
+        "asset": "./assets/fonts/PlayfairDisplay-ExtraBold.ttf",
+        "family": "PlayfairDisplay"
+      },
+      {
+        "asset": "./assets/fonts/PlayfairDisplay-Italic.ttf",
+        "family": "PlayfairDisplay"
+      },
+      {
+        "asset": "./assets/fonts/PlayfairDisplay-Medium.ttf",
+        "family": "PlayfairDisplay"
+      },
+      {
+        "asset": "./assets/fonts/PlayfairDisplay-MediumItalic.ttf",
+        "family": "PlayfairDisplay"
+      },
+      {
+        "asset": "./assets/fonts/PlayfairDisplay-SemiBold.ttf",
+        "family": "PlayfairDisplay"
+      },
+      {
+        "asset": "./assets/fonts/PlayfairDisplay-SemiBoldItalic.ttf",
+        "family": "PlayfairDisplay"
+      },
+      {
+        "asset": "./assets/fonts/WindSong-Medium.ttf",
+        "family": "WindSong"
+      },
+      // {
+      //   "asset": "./assets/fonts/Plaster-Regular.ttf",
+      //   "family": "Plaster"
+      // },
+      // {
+      //   "asset": "./assets/fonts/Modern Stencil.ttf",
+      //   "family": "Stencil"
+      // },
+      {
+        "asset": "./assets/fonts/Megrim-Regular.ttf",
+        "family": "Megrim"
+      }
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}

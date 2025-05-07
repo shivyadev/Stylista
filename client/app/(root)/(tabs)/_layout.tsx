@@ -73,7 +73,7 @@ export default function TabLayout() {
       >
         {/* Wave Background */}
         <Image
-          source={require("../../../assets/images/Vector 5.png")}
+          source={require("../../../assets/images/Header-vector.png")}
           style={{
             position: "absolute",
             top: 0,
@@ -87,17 +87,18 @@ export default function TabLayout() {
         {/* Foreground Row */}
         <View
           style={{
-            flexDirection: "row",
+            flex: 1,
+            justifyContent: "center",
             alignItems: "center",
-            justifyContent: "space-between",
-            paddingHorizontal: 16,
-            height: "100%",
-            marginTop: -10, // push content slightly upward
           }}
         >
-          {/* Left: App Icon */}
+          {/* App Icon (Left) */}
           <View
             style={{
+              position: "absolute",
+              left: 16,
+              top: "50%",
+              transform: [{ translateY: -18 }],
               width: 36,
               height: 36,
               borderRadius: 18,
@@ -109,26 +110,36 @@ export default function TabLayout() {
           >
             <Image
               source={require("../../../assets/images/icon.png")}
-              style={{ width: 34, height: 34 }}
+              style={{ width: 38, height: 38 }}
               resizeMode="contain"
             />
           </View>
 
           {/* Center: Logo Text */}
           <Image
-            source={require("../../../assets/icons/Stylista.png")}
-            resizeMode="stretch"
-            className="w-28 h-12 mr-3"
+            source={require("../../../assets/images/Heading.png")}
+            style={{
+              width: 200,
+              height: 50,
+            }}
+            resizeMode="contain"
           />
 
           {/* Right: Logout */}
-          <Pressable onPress={handleLogout} style={{ marginTop: -10 }}>
-            <View className="flex mx-auto bg-pink-50 rounded-full p-1">
-              <Image
-                source={require("../../../assets/icons/power.png")}
-                style={{ width: 20, height: 20 }}
-              />
-            </View>
+          <Pressable
+            onPress={handleLogout}
+            style={{
+              position: "absolute",
+              right: 1, // pushed close to the right edge
+              top: "80%",
+              transform: [{ translateY: -50 }],
+            }}
+          >
+            <Image
+              source={require("../../../assets/images/Sign out.png")}
+              style={{ width: 48, height: 48 }}
+              resizeMode="contain"
+            />
           </Pressable>
         </View>
       </View>

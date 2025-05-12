@@ -38,6 +38,43 @@ def store_items(request):
 
     except Exception as e:
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+@api_view(["GET"])
+def store_links(request):
+    try:
+        load_dotenv()
+        dataset_path = os.getenv("LINKS_DATASET")
+        df = pd.read_csv(dataset_path)
+        items = Items.objects.all()
+        item_map = {item.cloth_id: item for item in items}
+
+        # Step 2: Prepare list of updated instances
+        updated_items = []
+
+        for _, row in df.iterrows():
+            cloth_id = row["id"]
+            val = str(row["filtered_links"])
+    
+            if val.lower() != "none" and val != "nan":
+                links = val.split(",")
+            else:
+                links = []
+                
+            link1 = links[0] if len(links) > 0 else ""
+            link2 = links[1] if len(links) > 1 else ""
+
+            if cloth_id in item_map:
+                item = item_map[cloth_id]
+                item.link1 = link1
+                item.link2 = link2
+                updated_items.append(item)
+
+        # Step 3: Bulk update in a single DB query
+        Items.objects.bulk_update(updated_items, ["link1", "link2"])
+        return Response({"message": "Links stored"}, status=status.HTTP_201_CREATED)
+
+    except Exception as e:
+        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @api_view(["GET"])
 def get_items(request):

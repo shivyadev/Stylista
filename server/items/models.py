@@ -10,5 +10,7 @@ class Items(models.Model):
     type = models.CharField(max_length=50)
     name = models.CharField(max_length=200)
     url = models.CharField(max_length=200)
+    link1 = models.CharField(max_length=1000, default="")
+    link2 = models.CharField(max_length=1000, default="")
 
 

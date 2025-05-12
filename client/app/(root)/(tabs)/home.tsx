@@ -30,6 +30,8 @@ type Product = {
   usage: string;
   name: string;
   url: string;
+  link1: string;
+  link2: string;
 };
 
 type FilterType = "gender" | "season" | "baseColour";
@@ -62,6 +64,29 @@ const HomePage: React.FC = () => {
   // Available filters
   const filters = {
     gender: [...new Set(products.map((p: Product) => p.gender))],
+  };
+
+  const getSiteName = (link) => {
+    const priorityList = [
+      "myntra",
+      "amazon",
+      "flipkart",
+      "meesho",
+      "ajio",
+      "ebay",
+    ];
+    if (!link) return "Get Item";
+
+    const lowerLink = link.toLowerCase();
+    for (const site of priorityList) {
+      if (lowerLink.includes(site)) {
+        // Capitalize the first letter
+        return `Get product from ${
+          site.charAt(0).toUpperCase() + site.slice(1)
+        }`;
+      }
+    }
+    return "Get Item";
   };
 
   useFocusEffect(
@@ -367,11 +392,19 @@ const HomePage: React.FC = () => {
               Color: {selectedItem?.color} | Gender: {selectedItem?.gender}
             </Text>
             <TouchableOpacity
-              onPress={() => openLink(selectedItem?.url || "")}
+              onPress={() => openLink(selectedItem?.link1 || "")}
               className="bg-indigo-900 px-6 py-3 rounded-full mb-3"
             >
-              <Text className="text-white font-semibold text-center">
-                Get Link
+              <Text className="text-white font-semibold ml-12">
+                {getSiteName(selectedItem?.link1)}
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => openLink(selectedItem?.link2 || "")}
+              className="bg-indigo-900 px-6 py-3 rounded-full mb-3"
+            >
+              <Text className="text-white font-semibold ml-12">
+                {getSiteName(selectedItem?.link2)}
               </Text>
             </TouchableOpacity>
             <TouchableOpacity

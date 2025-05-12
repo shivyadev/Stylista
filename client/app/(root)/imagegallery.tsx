@@ -10,7 +10,7 @@ import {
   Animated,
   Alert,
   Dimensions,
-  Share,
+  Linking,
 } from "react-native";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useRouter, useLocalSearchParams } from "expo-router";
@@ -25,9 +25,13 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface ClothingItem {
   id: string;
+  name: string;
   type: string;
+  gender: string;
   url: any;
   color?: string;
+  link1: string;
+  link2: string;
 }
 
 interface Combination {
@@ -238,8 +242,12 @@ const RecommendationScreen = ({ route }) => {
         outfit: combo.items.map((item) => ({
           cloth_id: item.id,
           category: item.type,
+          name: item.name,
+          gender: item.gender,
           image_url: item.url,
           color: item.color,
+          link1: item.link1,
+          link2: item.link2,
         })),
       };
 
@@ -319,6 +327,35 @@ const RecommendationScreen = ({ route }) => {
 
   const toggleExpandCombination = (id: string) => {
     setExpandedCombination((prev) => (prev === id ? null : id));
+  };
+
+  const openLink = (url: string) => {
+    Linking.openURL(url).catch((err) =>
+      console.error("Failed to open link", err)
+    );
+  };
+
+  const getSiteName = (link) => {
+    const priorityList = [
+      "myntra",
+      "amazon",
+      "flipkart",
+      "meesho",
+      "ajio",
+      "ebay",
+    ];
+    if (!link) return "Get Item";
+
+    const lowerLink = link.toLowerCase();
+    for (const site of priorityList) {
+      if (lowerLink.includes(site)) {
+        // Capitalize the first letter
+        return `Get product from ${
+          site.charAt(0).toUpperCase() + site.slice(1)
+        }`;
+      }
+    }
+    return "Get Item";
   };
 
   const renderCombination = ({ item }: { item: Combination }) => {
@@ -563,9 +600,15 @@ const RecommendationScreen = ({ route }) => {
             </View>
 
             <View className="p-4">
-              <View className="flex-row justify-between items-center mb-3">
-                <Text className="text-xl font-bold text-gray-900">
-                  {selectedItem.type}
+              <View className="">
+                <Text className="text-lg font-bold text-gray-800 mb-2">
+                  {selectedItem?.name}
+                </Text>
+              </View>
+
+              <View className="flex-row justify-between items-center">
+                <Text className="text-sm text-gray-500 mb-1">
+                  {selectedItem?.type}{" "}
                 </Text>
               </View>
 
@@ -573,30 +616,33 @@ const RecommendationScreen = ({ route }) => {
               <View className="mb-4">
                 {selectedItem.color && (
                   <View className="flex-row mb-1">
-                    <Text className="text-sm font-medium text-gray-700">
-                      Color: {selectedItem.color}
-                    </Text>
-                  </View>
-                )}
-                {selectedItem.brand && (
-                  <View className="flex-row mb-1">
-                    <Text className="text-sm font-medium text-gray-700">
-                      Brand:{" "}
-                    </Text>
-                    <Text className="text-sm text-gray-600">
-                      {selectedItem.brand}
+                    <Text className="text-sm text-gray-500 mb-4">
+                      Color : {selectedItem.color} | Gender :{" "}
+                      {selectedItem?.gender}
                     </Text>
                   </View>
                 )}
               </View>
 
-              <View className="flex-row justify-between mt-2">
-                <AnimatedButton
-                  onPress={() => handleShare(selectedItem)}
-                  icon="share-social-outline"
-                  text="Share"
-                  color="bg-indigo-900"
-                />
+              <View className="flex justify-between mt-2">
+                <TouchableOpacity
+                  onPress={() => openLink(selectedItem?.link1 || "")}
+                  className="bg-indigo-900 px-6 py-3 rounded-lg mb-3"
+                >
+                  <Text className="text-white font-semibold ml-12">
+                    {getSiteName(selectedItem?.link1)}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+              <View className="flex justify-between">
+                <TouchableOpacity
+                  onPress={() => openLink(selectedItem?.link2 || "")}
+                  className="bg-indigo-900 px-6 py-3 rounded-lg mb-3"
+                >
+                  <Text className="text-white font-semibold ml-12">
+                    {getSiteName(selectedItem?.link2)}
+                  </Text>
+                </TouchableOpacity>
               </View>
             </View>
           </View>
